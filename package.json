@@ -1,0 +1,38 @@
+{
+  "name": "dom-manipulation-lazy-loading",
+  "version": "1.0.0",
+  "description": "DOM manipulation with lazy loading images",
+  "main": "index.ts",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edilberto-Vazquez/DOM-manipulation-lazy-loading.git"
+  },
+  "keywords": [
+    "typescript",
+    "javascript",
+    "DOM",
+    "lazy-loading"
+  ],
+  "author": "Edilberto Vazquez Luna <edilberto_vazquez12@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Edilberto-Vazquez/DOM-manipulation-lazy-loading/issues"
+  },
+  "homepage": "https://github.com/Edilberto-Vazquez/DOM-manipulation-lazy-loading#readme",
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^9.0.1",
+    "html-webpack-plugin": "^5.3.2",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.3.5",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
+  }
+}
