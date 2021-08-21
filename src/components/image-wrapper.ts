@@ -1,21 +1,25 @@
 class ImageWrapper extends HTMLElement {
   // create the properties
-  protected _image: string;
+  protected _src: string;
+  protected _observer: MutationObserver;
 
   // constructor with the properties
-  constructor(image: string) {
+  constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this._image = image;
+    this._observer = new MutationObserver((mutations) =>
+      this.onDomChanged(mutations)
+    );
+    this._src = "";
   }
 
   // getters and setter for the properties
-  public get image(): string {
-    return this._image;
+  public get src(): string {
+    return this._src;
   }
 
-  public set image(value: string) {
-    this._image = value;
+  public set src(value: string) {
+    this._src = value;
   }
 
   // method to generate the styles
@@ -39,9 +43,10 @@ class ImageWrapper extends HTMLElement {
   // method to generate the template
   protected getTemplete(): HTMLTemplateElement {
     const templete = document.createElement("template");
+    // dataset.src is the property, data-src is the attribute
     templete.innerHTML = `
       <div class="image-wrapper">
-        <img class="image-wrapper__image" src=${this.image} alt="fox image">
+        <img class="image-wrapper__image" alt="fox image">
       </div>
       ${this.getStyles()}
     `;
@@ -53,9 +58,35 @@ class ImageWrapper extends HTMLElement {
     this.shadowRoot?.append(this.getTemplete().content.cloneNode(true));
   }
 
+  public onDomChanged(mutations: MutationRecord[]): void {
+    if (!this.shadowRoot) {
+      return;
+    }
+  }
+
   // method to connect the element to the DOM
   public connectedCallback(): void {
     this.render();
+  }
+
+  static get observedAttributes(): string[] {
+    return ["src"];
+  }
+
+  public attributeChangedCallback(
+    name: string,
+    oldValue: any,
+    newValue: any
+  ): void {
+    if (name === "src") {
+      this.src = newValue;
+      const img = this.shadowRoot?.querySelector("img");
+      img && (img.src = this.src);
+    }
+  }
+
+  public disconnectedCallback(): void {
+    this._observer.disconnect();
   }
 }
 

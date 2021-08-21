@@ -3,10 +3,14 @@ import AddImageButton from "../components/add-image-button";
 import ImageWrapper from "../components/image-wrapper";
 import registerImage from "../utils/lazy-loading";
 
-const handleClick = async (event: any) => {
-  const image = new ImageWrapper(await getData("https://randomfox.ca/floof/"));
+const random = (max: number, min: number) =>
+  Math.floor(Math.random() * (max - min) + min);
+
+const handleClick = async () => {
+  const image = new ImageWrapper();
+  image.src = `https://randomfox.ca/images/${random(1, 122)}.jpg`;
   document.querySelector("#app")?.append(image);
-  registerImage(image);
+  await registerImage(image);
 };
 
 const Home = async () => {
